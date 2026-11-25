@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFFAF7">
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>Un piccolo test per te ♡</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23EF8995' d='M16 28s-11-6.6-11-15a6 6 0 0 1 11-3.3A6 6 0 0 1 27 13c0 8.4-11 15-11 15z'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="assets/bunny.png">
+  <link rel="preload" href="assets/bunny.png" as="image">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Cuoricini di sfondo -->
+  <div class="bg-hearts" aria-hidden="true"></div>
+  <canvas class="confetti" aria-hidden="true"></canvas>
+
+  <!-- Intestazione condivisa delle domande -->
+  <header class="quiz-header" hidden>
+    <p class="counter">Domanda <span class="counter-n">1</span> di 4</p>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+      <div class="progress-fill"></div>
+    </div>
+  </header>
+
+  <main class="app">
+
+    <!-- LANDING -->
+    <section class="screen is-active" id="landing">
+      <p class="eyebrow">UN PICCOLO TEST PER TE ♡</p>
+      <h1 class="title">Quanto conosci il tuo fidanzato?</h1>
+      <p class="subtitle">4 semplici domande. Un test assolutamente imparziale.</p>
+      <div class="bunny bunny--xl" data-mood="neutral"></div>
+      <button class="btn btn--primary" data-action="start">Inizia il quiz ♡</button>
+      <p class="footer-note">Made with love, just for you.</p>
+    </section>
+
+    <!-- DOMANDA 1 -->
+    <section class="screen" id="q1" data-step="1" hidden>
+      <div class="bunny" data-mood="sad"></div>
+      <h2 class="question">Quanto mi ami da 1 a 10?</h2>
+      <div class="slider-wrap">
+        <output class="slider-value" for="love">5</output>
+        <input id="love" class="slider" type="range" min="1" max="10" step="1" value="5" aria-label="Quanto mi ami, da 1 a 10">
+        <div class="slider-scale" aria-hidden="true"><span>1</span><span>10</span></div>
+      </div>
+      <p class="feedback" aria-live="polite">Mi ami così poco?</p>
+      <button class="btn btn--primary btn--next" data-action="next" disabled>Avanti</button>
+    </section>
+
+    <!-- DOMANDA 2 -->
+    <section class="screen" id="q2" data-step="2" hidden>
+      <div class="bunny" data-mood="neutral"></div>
+      <h2 class="question">Chi è il più bello della coppia?</h2>
+      <div class="options options--stack">
+        <button class="btn btn--option" data-answer="tu">Tu</button>
+        <button class="btn btn--option" data-answer="io">Io</button>
+        <button class="btn btn--option" data-answer="entrambi">Entrambi</button>
+      </div>
+      <p class="feedback" aria-live="polite">&nbsp;</p>
+      <button class="btn btn--primary btn--next" data-action="next" disabled>Avanti</button>
+    </section>
+
+    <!-- DOMANDA 3 -->
+    <section class="screen" id="q3" data-step="3" hidden>
+      <div class="bunny" data-mood="neutral"></div>
+      <h2 class="question">Quanto ti manco quando non siamo insieme?</h2>
+      <div class="options options--stack">
+        <button class="btn btn--option" data-answer="niente">Per niente</button>
+        <button class="btn btn--option" data-answer="pochino">Un pochino</button>
+        <button class="btn btn--option" data-answer="tanto">Tanto</button>
+        <button class="btn btn--option btn--grow" data-answer="impazzire">Da impazzire</button>
+      </div>
+      <p class="feedback" aria-live="polite">&nbsp;</p>
+      <button class="btn btn--primary btn--next" data-action="next" disabled>Avanti</button>
+    </section>
+
+    <!-- DOMANDA 4 -->
+    <section class="screen" id="q4" data-step="4" hidden>
+      <div class="bunny" data-mood="neutral"></div>
+      <h2 class="question">Vuoi uscire con me?</h2>
+      <p class="feedback" aria-live="polite">&nbsp;</p>
+      <div class="arena">
+        <button class="btn btn--yes" data-action="yes">Sì</button>
+        <button class="btn btn--no" data-action="no">No</button>
+      </div>
+    </section>
+
+    <!-- FINALE -->
+    <section class="screen screen--final" id="final" hidden>
+      <div class="bunny bunny--final" data-mood="happy"></div>
+      <div class="certificate">
+        <p class="eyebrow">CERTIFICATO UFFICIALE DI COPPIA</p>
+        <h1 class="title">Congratulazioni, Gnomo!</h1>
+        <p class="score">100<span>/100</span></p>
+        <p class="subtitle">Sei ufficialmente la fidanzata perfetta.</p>
+        <p class="prize">Premio: un appuntamento romantico con me. ❤️</p>
+        <p class="disclaimer">Test scientificamente verificato, assolutamente imparziale e per niente manipolato dal tuo fidanzato.</p>
+      </div>
+      <button class="link-skip" data-action="restart">rifai il test</button>
+    </section>
+
+  </main>
+
+  <!-- Overlay espressioni del coniglietto (clonato dentro ogni .bunny) -->
+  <template id="bunny-tpl">
+    <img class="bunny-img" src="assets/bunny.png" width="440" height="732" alt="Il coniglietto con il palloncino a cuore" draggable="false">
+    <svg class="bunny-face" viewBox="0 0 440 732" aria-hidden="true">
+      <!-- triste -->
+      <g class="face face--sad">
+        <ellipse cx="162" cy="464" rx="17" ry="16" fill="#fff"/>
+        <ellipse cx="257" cy="463" rx="17" ry="16" fill="#fff"/>
+        <rect x="203" y="503" width="14" height="24" fill="#fff"/>
+        <g fill="none" stroke="#3b3b3b" stroke-width="4" stroke-linecap="round">
+          <path d="M150 463 q12 9 24 0"/>
+          <path d="M245 463 q12 9 24 0"/>
+          <path d="M147 446 l18 -6"/>
+          <path d="M272 446 l-18 -6"/>
+          <path d="M198 520 q12 -9 24 0"/>
+        </g>
+        <g class="tears" fill="#9fd3f2" stroke="#7bbde4" stroke-width="1.5">
+          <path class="tear tear--l1" d="M158 470 q-8 13 0 18 q8 -5 0 -18z"/>
+          <path class="tear tear--l2" d="M166 470 q-8 13 0 18 q8 -5 0 -18z"/>
+          <path class="tear tear--r1" d="M253 470 q-8 13 0 18 q8 -5 0 -18z"/>
+          <path class="tear tear--r2" d="M261 470 q-8 13 0 18 q8 -5 0 -18z"/>
+        </g>
+      </g>
+      <!-- felice -->
+      <g class="face face--happy">
+        <ellipse cx="162" cy="464" rx="17" ry="16" fill="#fff"/>
+        <ellipse cx="257" cy="463" rx="17" ry="16" fill="#fff"/>
+        <rect x="203" y="503" width="14" height="24" fill="#fff"/>
+        <ellipse cx="143" cy="489" rx="13" ry="7" fill="#F7A9B4" opacity=".75"/>
+        <ellipse cx="277" cy="488" rx="13" ry="7" fill="#F7A9B4" opacity=".75"/>
+        <g fill="none" stroke="#3b3b3b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M151 469 q11 -14 22 0"/>
+          <path d="M246 468 q11 -14 22 0"/>
+        </g>
+        <path d="M199 506 q11 18 22 0 z" fill="#E8707E" stroke="#3b3b3b" stroke-width="3.5" stroke-linejoin="round"/>
+      </g>
+    </svg>
+    <span class="bunny-heart h1" aria-hidden="true">♥</span>
+    <span class="bunny-heart h2" aria-hidden="true">♥</span>
+    <span class="bunny-heart h3" aria-hidden="true">♥</span>
+    <span class="bunny-heart h4" aria-hidden="true">♥</span>
+  </template>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
